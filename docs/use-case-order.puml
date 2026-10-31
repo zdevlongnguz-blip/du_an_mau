@@ -1,0 +1,38 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam actorStyle awesome
+
+title So do Use Case quy trinh dat hang
+
+actor "Nguoi dung" as User
+
+rectangle "Quy trinh dat hang" {
+  usecase "Xem gio hang" as ViewCart
+  usecase "Them san pham vao gio" as AddCart
+  usecase "Cap nhat so luong" as UpdateCart
+  usecase "Xoa san pham khoi gio" as RemoveCart
+  usecase "Thanh toan" as Checkout
+  usecase "Kiem tra ton kho" as Stock
+  usecase "Ap dung voucher" as Voucher
+  usecase "Nhap thong tin giao hang" as Shipping
+  usecase "Tao don hang" as CreateOrder
+  usecase "Xoa gio hang sau khi dat" as ClearCart
+  usecase "Xem hoa don" as Invoice
+}
+
+User --> ViewCart
+User --> AddCart
+User --> UpdateCart
+User --> RemoveCart
+User --> Checkout
+
+Checkout ..> Stock : <<include>>
+Checkout ..> Shipping : <<include>>
+Checkout ..> Voucher : <<include>>
+Checkout ..> CreateOrder : <<include>>
+CreateOrder ..> ClearCart : <<include>>
+CreateOrder ..> Invoice : <<include>>
+
+@enduml

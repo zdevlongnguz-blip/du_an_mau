@@ -1,0 +1,49 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam actorStyle awesome
+
+title So do Use Case xac thuc va tai khoan
+
+actor "Khach vang lai" as Guest
+actor "Nguoi dung" as User
+actor "Dich vu Email" as Email
+
+rectangle "Xac thuc va quan ly tai khoan" {
+  usecase "Dang ky tai khoan" as Register
+  usecase "Nhap thong tin dang ky" as RegisterInfo
+  usecase "Kiem tra email / username" as CheckUnique
+  usecase "Gui email kich hoat" as SendVerify
+  usecase "Kich hoat tai khoan" as Verify
+  usecase "Dang nhap" as Login
+  usecase "Dang xuat" as Logout
+  usecase "Quen mat khau" as Forgot
+  usecase "Gui email dat lai mat khau" as SendReset
+  usecase "Dat lai mat khau" as Reset
+  usecase "Cap nhat thong tin ca nhan" as UpdateProfile
+  usecase "Doi avatar" as ChangeAvatar
+  usecase "Xem voucher cua toi" as ViewVouchers
+}
+
+Guest --> Register
+Guest --> Login
+Guest --> Forgot
+Guest --> Verify
+
+User --> Login
+User --> Logout
+User --> UpdateProfile
+User --> ChangeAvatar
+User --> ViewVouchers
+
+Register ..> RegisterInfo : <<include>>
+Register ..> CheckUnique : <<include>>
+Register ..> SendVerify : <<include>>
+SendVerify --> Email
+Verify --> Email
+Forgot ..> SendReset : <<include>>
+SendReset --> Email
+Forgot ..> Reset : <<include>>
+
+@enduml

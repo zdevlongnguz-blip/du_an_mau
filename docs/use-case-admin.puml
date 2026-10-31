@@ -1,0 +1,73 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam actorStyle awesome
+
+title So do Use Case quan tri Admin
+
+actor "Admin" as Admin
+
+rectangle "He thong quan tri" {
+  usecase "Dang nhap va xac thuc quyen Admin" as AdminLogin
+  usecase "Xem dashboard / thong ke" as Dashboard
+
+  usecase "Quan ly san pham" as Products
+  usecase "Them san pham" as CreateProduct
+  usecase "Xem chi tiet san pham" as ProductDetail
+  usecase "Sua san pham" as EditProduct
+  usecase "Xoa san pham" as DeleteProduct
+  usecase "Sinh mo ta tu anh bang AI" as GenerateContent
+
+  usecase "Quan ly danh muc" as Categories
+  usecase "Them / sua / xoa danh muc" as CategoryCrud
+
+  usecase "Quan ly nguoi dung" as Users
+  usecase "Xem / sua / xoa nguoi dung" as UserCrud
+
+  usecase "Quan ly voucher" as Vouchers
+  usecase "Xem / tim kiem / phan trang voucher" as ViewVouchers
+  usecase "Them voucher" as CreateVoucher
+  usecase "Sua voucher chua nhan" as EditVoucher
+  usecase "Xoa voucher chua nhan" as DeleteVoucher
+
+  usecase "Quan ly don hang" as Orders
+  usecase "Xem chi tiet don hang" as OrderDetail
+  usecase "Cap nhat trang thai don hang" as UpdateOrder
+  usecase "Xoa don hang" as DeleteOrder
+  usecase "Xuat don hang CSV" as ExportOrders
+
+  usecase "Quan ly binh luan" as Comments
+  usecase "Xem chi tiet binh luan" as CommentDetail
+  usecase "Duyet / xoa binh luan" as ModerateComments
+}
+
+Admin --> AdminLogin
+Admin --> Dashboard
+Admin --> Products
+Admin --> Categories
+Admin --> Users
+Admin --> Vouchers
+Admin --> Orders
+Admin --> Comments
+
+Products ..> CreateProduct : <<include>>
+Products ..> ProductDetail : <<include>>
+Products ..> EditProduct : <<include>>
+Products ..> DeleteProduct : <<include>>
+CreateProduct ..> GenerateContent : <<extend>>
+
+Categories ..> CategoryCrud : <<include>>
+Users ..> UserCrud : <<include>>
+Vouchers ..> ViewVouchers : <<include>>
+Vouchers ..> CreateVoucher : <<include>>
+Vouchers ..> EditVoucher : <<include>>
+Vouchers ..> DeleteVoucher : <<include>>
+Orders ..> OrderDetail : <<include>>
+Orders ..> UpdateOrder : <<include>>
+Orders ..> DeleteOrder : <<include>>
+Orders ..> ExportOrders : <<include>>
+Comments ..> CommentDetail : <<include>>
+Comments ..> ModerateComments : <<include>>
+
+@enduml

@@ -1,0 +1,48 @@
+# Dependencies
+/vendor/
+/node_modules/
+
+# Composer
+composer.phar
+composer.lock
+
+# Local environment / secrets
+.env
+.env.*
+account.txt
+configs/env.php
+
+# Database / local data
+*.sqlite
+*.sqlite3
+*.sql
+
+# Logs / caches
+*.log
+.cache/
+phpunit.result.cache
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Uploads / generated assets
+/uploads/
+/assets/uploads/
+/assets/img/generated/
+
+# Build outputs
+/dist/
+/build/
+
+# PHP specific
+*.phar
+coverage/
+
+# Keep project docs tracked if desired
+# docs/
+# .github/

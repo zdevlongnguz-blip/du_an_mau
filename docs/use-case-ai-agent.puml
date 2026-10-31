@@ -1,0 +1,56 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam actorStyle awesome
+
+title So do Use Case AI Agent - He thong cua hang truc tuyen
+
+actor "Nguoi dung" as User
+actor "Admin" as Admin
+actor "AI Agent / Gemini" as AI #D9EAF7
+
+rectangle "He thong AI ho tro nghiep vu" {
+  usecase "Tu van san pham qua chat" as Chat #D9EAF7
+  usecase "Doc danh sach san pham va danh muc" as ReadCatalog
+  usecase "Luu lich su hoi dap" as SaveHistory
+
+  usecase "Sinh noi dung san pham tu anh" as GenerateContent #D9EAF7
+  usecase "Nhan anh va thong tin san pham" as ProductInput
+  usecase "Tra ve mo ta HTML" as ProductDescription
+
+  usecase "Kiem duyet binh luan" as ModerateComment #D9EAF7
+  usecase "Phan loai noi dung" as ClassifyComment
+  usecase "Tra ve ket qua JSON" as ModerationResult
+
+  usecase "Sinh bo cau hoi mini-game" as GenerateQuiz #D9EAF7
+  usecase "Kiem tra dinh dang 5 cau hoi" as ValidateQuiz
+  usecase "Su dung bo cau hoi du phong" as FallbackQuiz
+}
+
+User --> Chat
+User --> GenerateQuiz
+Admin --> GenerateContent
+
+Chat ..> ReadCatalog : <<include>>
+Chat ..> SaveHistory : <<include>>
+GenerateContent ..> ProductInput : <<include>>
+GenerateContent ..> ProductDescription : <<include>>
+ModerateComment ..> ClassifyComment : <<include>>
+ModerateComment ..> ModerationResult : <<include>>
+GenerateQuiz ..> ValidateQuiz : <<include>>
+GenerateQuiz ..> FallbackQuiz : <<extend>>
+
+Chat --> AI
+GenerateContent --> AI
+ModerateComment --> AI
+GenerateQuiz --> AI
+
+note right of AI
+Gemini 2.5 Flash
+Goi qua AIService
+Co rate limit
+Co fallback cho mini-game
+end note
+
+@enduml

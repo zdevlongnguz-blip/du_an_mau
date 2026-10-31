@@ -1,0 +1,97 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam actorStyle awesome
+
+title So do Use Case tong quan - He thong cua hang truc tuyen
+
+actor "Khach vang lai" as Guest
+actor "Nguoi dung" as User
+actor "Admin" as Admin
+actor "Dich vu Email" as Email
+actor "AI Agent / Gemini" as AI
+
+rectangle "He thong cua hang truc tuyen" {
+  usecase "Xem san pham" as ViewProduct
+  usecase "Tim kiem / loc san pham" as Search
+  usecase "Xem chi tiet san pham" as Detail
+
+  usecase "Dang ky tai khoan" as Register
+  usecase "Xac thuc email" as Verify
+  usecase "Dang nhap / dang xuat" as Login
+  usecase "Khoi phuc mat khau" as Forgot
+
+  usecase "Quan ly ho so" as Profile
+  usecase "Quan ly gio hang" as Cart
+  usecase "Dat hang" as Order
+  usecase "Xem lich su don hang" as History
+  usecase "Xem hoa don" as Invoice
+  usecase "Quan ly voucher ca nhan" as Vouchers
+  usecase "Nhan voucher tu mini-game" as ClaimVoucher
+  usecase "Ap dung voucher khi dat hang" as ApplyVoucher
+  usecase "Binh luan san pham" as Comment
+
+  usecase "Tu van san pham qua chat" as Chat #D9EAF7
+  usecase "Sinh noi dung san pham tu anh" as GenerateContent #D9EAF7
+  usecase "Kiem duyet binh luan" as ModerateComment #D9EAF7
+  usecase "Sinh cau hoi mini-game" as GenerateQuiz #D9EAF7
+  usecase "Choi mini-game" as Game
+
+  usecase "Quan ly san pham" as ManageProduct
+  usecase "Quan ly danh muc" as ManageCategory
+  usecase "Quan ly nguoi dung" as ManageUser
+  usecase "Quan ly voucher" as ManageVoucher
+  usecase "Quan ly don hang" as ManageOrder
+  usecase "Duyet / xoa binh luan" as AdminModerateComment
+  usecase "Xem thong ke" as Dashboard
+  usecase "Xuat du lieu don hang" as Export
+}
+
+Guest --> ViewProduct
+Guest --> Search
+Guest --> Detail
+Guest --> Register
+Guest --> Login
+Guest --> Forgot
+
+User --> ViewProduct
+User --> Search
+User --> Detail
+User --> Profile
+User --> Cart
+User --> Order
+User --> History
+User --> Invoice
+User --> Vouchers
+User --> ClaimVoucher
+User --> ApplyVoucher
+User --> Comment
+User --> Chat
+User --> Game
+
+Admin --> Dashboard
+Admin --> ManageProduct
+Admin --> ManageCategory
+Admin --> ManageUser
+Admin --> ManageVoucher
+Admin --> ManageOrder
+Admin --> AdminModerateComment
+Admin --> GenerateContent
+Admin --> Export
+
+Register ..> Verify : gui yeu cau xac thuc
+Verify --> Email
+Forgot --> Email
+Chat --> AI
+GenerateContent --> AI
+ModerateComment --> AI
+GenerateQuiz --> AI
+Comment ..> ModerateComment : <<include>>
+Game ..> GenerateQuiz : <<include>>
+Game ..> ClaimVoucher : <<include>>
+Order ..> Cart : <<include>>
+Order ..> ApplyVoucher : <<include>>
+Order ..> Invoice : <<include>>
+
+@enduml
