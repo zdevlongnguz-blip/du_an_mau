@@ -30,7 +30,7 @@ class ProductController
         $categoryId = $requestedCategoryId > 0 && isset($categoryIds[$requestedCategoryId]) ? $requestedCategoryId : 0;
 
         $topProducts = $this->productModel->getTopByViews(5);
-        $filtered = $this->productModel->getFiltered($search, $categoryId > 0 ? $categoryId : null, $page, 3);
+        $filtered = $this->productModel->getFiltered($search, $categoryId > 0 ? $categoryId : null, $page, 8);
         $categoryCounts = $this->productModel->getCategoryCounts();
         $countMap = [];
 
@@ -69,7 +69,7 @@ class ProductController
         }
 
         $categoryId = $requestedCategoryId > 0 && isset($categoryIds[$requestedCategoryId]) ? $requestedCategoryId : 0;
-        $filtered = $this->productModel->getFiltered($search, $categoryId > 0 ? $categoryId : null, $page, 3);
+        $filtered = $this->productModel->getFiltered($search, $categoryId > 0 ? $categoryId : null, $page, 8);
 
         $categoryCounts = $this->productModel->getCategoryCounts();
         $countMap = [];

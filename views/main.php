@@ -84,7 +84,7 @@
                         </button>
 
                     <?php else: ?>
-                        <a href="<?= url('?action=login') ?>" class="btn-mono">Đăng nhập</a>
+                        <a href="<?= url('?action=login') ?>" class="hs-btn hs-btn--primary">Đăng nhập</a>
                     <?php endif; ?>
 
                 </div>
@@ -128,10 +128,10 @@
                         <?php if ($_SESSION['user']['role'] === 'admin') : ?>
                             <a href="<?= url('?action=dashboard') ?>" class="btn btn-outline-dark btn-sm">Trang quản trị</a>
                         <?php endif ?>
-                        <a href="<?= url('?action=logout') ?>" class="btn-mono text-center">Đăng xuất</a>
+                        <a href="<?= url('?action=logout') ?>" class="hs-btn hs-btn--primary text-center">Đăng xuất</a>
                     </div>
                 <?php else: ?>
-                    <a href="<?= url('?action=login') ?>" class="btn-mono w-100 text-center d-block">Đăng nhập</a>
+                    <a href="<?= url('?action=login') ?>" class="hs-btn hs-btn--primary w-100 text-center d-block">Đăng nhập</a>
                 <?php endif; ?>
             </div>
         </div>
