@@ -18,7 +18,7 @@ if (!empty($filterCategory)) {
 ?>
 
 <div class="hs-catalog">
-    <div class="container-fluid px-3 px-lg-5">
+    <div class="hs-container">
         <div class="hs-catalog__top">
             <div>
                 <h1 class="hs-catalog__title">Danh mục sản phẩm</h1>
