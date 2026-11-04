@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?= BASE_URL . 'assets/css/user-theme.css' ?>">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/user-theme.css?v=<?= @filemtime(dirname(__DIR__) . '/assets/css/user-theme.css') ?: time() ?>">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -21,7 +21,7 @@
 
     <header class="site-header">
         <nav class="navbar navbar-dark">
-            <div class="container-fluid px-3 px-lg-5 d-flex align-items-center">
+            <div class="hs-container d-flex align-items-center">
 
                 <!-- Hamburger: compact, mobile + tablet -->
                 <button class="hamburger-btn d-lg-none me-2" type="button"
