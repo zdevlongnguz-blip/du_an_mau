@@ -304,15 +304,43 @@ main {
     color: #111111;
 }
 
-.hs-cart-page { padding-top: 32px; padding-bottom: 64px; }
-.hs-cart-title { font: 600 24px/1.3 Inter, sans-serif; color: #111; margin: 0 0 24px; }
-.hs-cart-layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 40px; align-items: start; }
-.hs-cart-summary { position: sticky; top: 96px; }
-.hs-summary-card { background: #fff; border: 1px solid #e6e6e6; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
-.hs-summary-title { font: 600 16px/1.3 Inter, sans-serif; color: #111; margin: 0 0 4px; letter-spacing: 0; text-transform: none; }
-.hs-summary-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 14px; color: #444; }
-.hs-summary-row strong { font-weight: 600; color: #111; }
-.hs-summary-note { font-size: 13px; color: #777; margin: 0; }
+.hs-form-alert { background: #fdecea; border: 1px solid #f5c2c0; color: #b3261e; border-radius: 10px; padding: 12px 14px; font-size: 14px; margin-bottom: 16px; }
+.alert-success { background: #eaf7ee; border-color: #b7e4c7; color: #1b5e20; }
+.alert-danger { background: #fdecea; border-color: #f5c2c0; color: #b3261e; }
+.alert-warning { background: #fff4d6; border-color: #f8d58c; color: #8a5a00; }
+.alert-info { background: #eef2f7; border-color: #d7dfe9; color: #375066; }
+.hs-checkout-page { padding-top: 32px; padding-bottom: 64px; }
+.hs-page-title { font: 600 24px/1.3 Inter, sans-serif; color: #111; margin: 0 0 20px; text-transform: none; letter-spacing: 0; }
+.hs-section-title { font: 600 16px/1.3 Inter, sans-serif; color: #111; margin: 0 0 16px; text-transform: none; letter-spacing: 0; }
+.hs-steps { display: flex; align-items: center; gap: 12px; list-style: none; padding: 0; margin: 0 0 32px; font-size: 13px; color: #aaa; }
+.hs-steps__item { display: flex; align-items: center; gap: 8px; }
+.hs-steps__item + .hs-steps__item::before { content: ""; width: 32px; height: 1px; background: #ddd; margin-right: 4px; }
+.hs-steps__item a { display: flex; align-items: center; gap: 8px; color: #111; text-decoration: none; }
+.hs-steps__num { width: 24px; height: 24px; border-radius: 50%; border: 1px solid #ddd; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: #fff; color: #aaa; }
+.hs-steps__item.is-active { color: #111; font-weight: 600; }
+.hs-steps__item.is-active .hs-steps__num { background: #111; border-color: #111; color: #fff; }
+.hs-steps__item.is-done { color: #111; }
+.hs-steps__item.is-done .hs-steps__num { border-color: #111; color: #111; }
+.hs-checkout-layout { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 40px; align-items: start; }
+.hs-checkout-summary { position: sticky; top: 96px; }
+@media (max-width: 991.98px) { .hs-checkout-layout { grid-template-columns: minmax(0, 1fr); gap: 24px; } .hs-checkout-summary { position: static; } }
+.hs-field { margin-bottom: 16px; }
+.hs-label { display: block; font-size: 13px; font-weight: 500; color: #111; margin-bottom: 6px; }
+.hs-input { height: 44px; border: 1px solid #ddd; border-radius: 10px; background: #fff; color: #111; font-size: 14px; padding: 0 14px; box-shadow: none; }
+.hs-input:focus { border-color: #111; box-shadow: none; outline: 0; }
+.hs-textarea { height: auto; min-height: 96px; padding: 12px 14px; resize: vertical; }
+.hs-input.is-invalid { border-color: #c62828; background-image: none; }
+.hs-hint { font-size: 12px; color: #777; margin-top: 6px; }
+.hs-hint__link { color: #111; text-decoration: underline; }
+.hs-checkout-form .invalid-feedback { color: #c62828; font-size: 12px; margin-top: 6px; }
+.hs-btn--lg { height: 48px; }
+.hs-order-item { display: flex; gap: 12px; align-items: center; padding: 8px 0; }
+.hs-order-item img { width: 56px; height: 56px; object-fit: cover; border-radius: 8px; background: #f4f4f4; flex: none; }
+.hs-order-item__meta { flex: 1; min-width: 0; }
+.hs-order-item__name { font: 500 14px/1.4 Inter, sans-serif; color: #111; }
+.hs-order-item__qty { font-size: 12px; color: #777; }
+.hs-order-item__total { margin-left: auto; font: 600 14px/1 Inter, sans-serif; color: #111; white-space: nowrap; }
+.hs-summary-voucher { font-size: 13px; color: #1b7f3b; min-height: 18px; }
 .hs-summary-row--total { border-top: 1px solid #e6e6e6; padding-top: 16px; margin-top: 4px; font-size: 18px; font-weight: 600; color: #111; }
 .hs-summary-row--total strong { font-size: 18px; }
 .hs-btn--block { display: flex; width: 100%; align-items: center; justify-content: center; text-decoration: none; }

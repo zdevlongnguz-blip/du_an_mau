@@ -78,7 +78,7 @@ class OrderController extends BaseController
         if (!empty($errors)) {
             setOldInput($oldInput);
             setValidationErrors($errors);
-            redirectWithFlash(url('?action=checkout'), 'Có lỗi trong biểu mẫu. Vui lòng kiểm tra lại.');
+            redirectWithFlash(url('?action=checkout'), 'Có lỗi trong biểu mẫu. Vui lòng kiểm tra lại.', 'danger');
         }
 
         $items = $this->cartModel->getItems($_SESSION['user']['id']);

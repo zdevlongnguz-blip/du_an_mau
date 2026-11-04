@@ -48,7 +48,7 @@ Admin dùng layout riêng `views/admin/dashboard.php`, **không** dùng `main.ph
 
 ### Thanh toán `web/checkout` (cần đăng nhập)
 - Biến: `cartItems`, `cartTotal`, `availableVouchers`.
-- Form: `POST ?action=order-store`, field `receiver_name`, `receiver_phone`, `shipping_address`, `note`, `voucher_id` (radio; giá trị rỗng = không dùng voucher).
+- Form: `POST ?action=order-store`, field `receiver_name`, `receiver_phone`, `shipping_address`, `note`, `voucher_id` (`<select id="voucher_id" name="voucher_id">` với option rỗng `Không dùng voucher`; các option chứa `data-discount`; giá trị rỗng = không dùng voucher).
 - JS tính tổng: `#checkout-total`, `#voucher-summary`, `#voucher_id`, thuộc tính `data-discount`, `data-original-total` trên lựa chọn voucher.
 - Không có chọn phương thức thanh toán, không có phí ship.
 
