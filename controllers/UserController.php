@@ -174,6 +174,7 @@ class UserController extends BaseController
 
         $new_password = isset($_POST['new-password']) ? trim($_POST['new-password']) : '';
         $password_confirm = isset($_POST['confirm-password']) ? trim($_POST['confirm-password']) : '';
+        $current_password = isset($_POST['password']) ? (string)$_POST['password'] : '';
 
         //echo json_encode([
         //    'status' => 'success',
@@ -182,6 +183,13 @@ class UserController extends BaseController
         //exit();
 
         //validate
+
+        if ($current_password === '') {
+            $errors['password'] = 'Vui lòng nhập mật khẩu hiện tại.';
+        } elseif (!password_verify($current_password, $user['password'])) {
+            $errors['password'] = 'Mật khẩu hiện tại không đúng.';
+        }
+
         if (empty($new_password)) {
             $errors['new-password'] = 'Mật khẩu mới không được để trống.';
         } elseif (strlen($new_password) < 6) {
@@ -204,7 +212,7 @@ class UserController extends BaseController
 
         try {
             $this->userModel->update($user['id'], [
-                'password' => $new_password
+                'password' => password_hash($new_password, PASSWORD_BCRYPT)
             ]);
             echo json_encode([
                 'status' => 'success',

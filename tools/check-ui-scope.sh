@@ -36,5 +36,21 @@ if [ -n "$removed" ]; then
   echo "$removed"
 fi
 
+# Cảnh báo class hs-* dùng trong view nhưng CHƯA có selector trong user-theme.css
+css="assets/css/user-theme.css"
+if [ -f "$css" ]; then
+  used=$(for f in $(echo "$changed" | grep -E '^views/(main\.php|web/|auth/|user/)'); do [ -f "$f" ] && grep -ohE 'hs-[a-zA-Z0-9_-]+' "$f"; done | sort -u)
+  missing=""
+  for c in $used; do
+    case "$c" in *-) continue ;; esac   # bỏ qua class ghép động như hs-chip--<?= $x ?>
+    grep -qE "\.${c}([^a-zA-Z0-9_-]|$)" "$css" || missing="$missing $c"
+  done
+  if [ -n "$missing" ]; then
+    echo ""; echo "THIẾU CSS: các class sau dùng trong view nhưng không có selector trong $css:"
+    for c in $missing; do echo "  .$c"; done
+    bad=1
+  fi
+fi
+
 if [ $bad -eq 0 ]; then echo "OK: mọi thay đổi nằm trong vùng được phép."; else echo "THẤT BẠI: xem các dòng trên."; fi
 exit $bad
