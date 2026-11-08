@@ -2431,6 +2431,52 @@ small,
 .hs-field-error:empty { display: none; }
 .hs-form-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 8px; }
 
+.hs-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #c2570c; margin: 0 0 6px; }
+.hs-link { color: #111; font-size: 14px; text-decoration: underline; }
+.hs-voucher-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+.hs-voucher-head .hs-page-title { margin: 0; }
+.hs-voucher-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 767.98px) { .hs-voucher-list { grid-template-columns: minmax(0, 1fr); } }
+.hs-ticket { display: flex; background: #fff; border: 1px solid #e6e6e6; border-radius: 12px; overflow: hidden; }
+.hs-ticket[hidden] { display: none; }
+.hs-ticket__pct { flex: none; width: 112px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px 8px; background: #ff7a1a; color: #fff; font: 600 12px/1.2 Inter, sans-serif; letter-spacing: .06em; text-align: center; }
+.hs-ticket__pct strong { display: block; font-size: 28px; line-height: 1.1; letter-spacing: 0; margin-top: 2px; }
+.hs-ticket__body { flex: 1; min-width: 0; padding: 14px 16px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; border-left: 2px dashed #ddd; }
+.hs-ticket__code { display: flex; align-items: center; gap: 8px; max-width: 100%; }
+.hs-ticket__code code { font: 600 14px/1.2 ui-monospace, Menlo, Consolas, monospace; letter-spacing: .04em; color: #111; background: #f4f4f4; padding: 8px 10px; border-radius: 8px; overflow-wrap: anywhere; }
+.hs-ticket__meta { font-size: 12px; color: #777; }
+.hs-ticket.is-used { opacity: .6; }
+.hs-ticket.is-used .hs-ticket__pct { background: #999; }
+.hs-ticket--lg { margin-top: 12px; }
+.hs-game-wrap { max-width: 820px; margin-inline: auto; }
+.hs-game-page { padding-top: 32px; padding-bottom: 64px; }
+.hs-game-head { margin-bottom: 20px; }
+.hs-game-head .hs-page-title { margin: 0 0 6px; }
+.hs-game-steps { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 20px; }
+.hs-game-steps .hs-link { margin-left: auto; }
+.hs-reward-chip { display: inline-flex; align-items: center; gap: 4px; height: 32px; padding: 0 12px; border-radius: 16px; border: 1px solid #ff7a1a; color: #c2570c; font-size: 13px; font-weight: 600; background: #fff; }
+.hs-reward-chip.is-owned { border-color: #ddd; color: #999; text-decoration: line-through; background: #f7f7f7; }
+.hs-game-panel { border: 1px solid #e6e6e6; border-radius: 12px; padding: 24px; background: #fff; margin-bottom: 32px; }
+.hs-game-start { display: flex; justify-content: center; }
+.hs-game-panel #quiz-start { padding: 8px 0 0; }
+.hs-game-panel #quiz-start .hs-btn { min-width: 168px; }
+.hs-question { border: 1px solid #e6e6e6; border-radius: 12px; padding: 16px; background: #fff; }
+.hs-question__text { font-size: 15px; font-weight: 600; margin-bottom: 10px; }
+#game-message { margin-top: 16px; }
+#game-message .alert { border-radius: 10px; border: 1px solid transparent; padding: 12px 14px; font-size: 14px; margin-bottom: 12px; }
+#game-message .alert-success { background: #e6f4ea; color: #1b7f3b; border-color: #c9e7d2; }
+#game-message .alert-warning { background: #fff4e5; color: #8a4b00; border-color: #f8dcb4; }
+#game-message .alert-info { background: #e8f0fe; color: #1a56c4; border-color: #c9d9fb; }
+#game-message .alert-secondary { background: #f4f4f4; color: #444; border-color: #e6e6e6; }
+#game-message code { background: rgba(0,0,0,.06); padding: 2px 6px; border-radius: 6px; color: inherit; }
+.hs-game-feed { margin-top: 12px; }
+.hs-feed { border-top: 1px solid #e6e6e6; }
+.hs-feed-item { display: flex; align-items: center; gap: 10px; padding: 12px 0; border-bottom: 1px solid #e6e6e6; font-size: 14px; color: #333; }
+.hs-feed-item i { color: #ff7a1a; font-size: 18px; flex: none; }
+.hs-feed-item time { margin-left: auto; white-space: nowrap; }
+.hs-voucher-empty { margin-top: 16px; }
+@media (max-width: 575.98px) { .hs-ticket__pct { width: 92px; } .hs-game-panel { padding: 16px; } .hs-feed-item { flex-wrap: wrap; } .hs-feed-item time { width: 100%; margin-left: 28px; } }
+
 @media print {
     .site-header,
     .site-footer,
