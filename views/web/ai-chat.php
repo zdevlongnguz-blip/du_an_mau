@@ -1,196 +1,54 @@
-﻿<style>
-    .ai-chat-shell {
-        max-width: 600px;
-        margin: 0 auto;
-        background: #121212;
-        border: 1px solid rgba(255,255,255,0.08);
-        border-radius: 1rem;
-        overflow: hidden;
-    }
-    .ai-chat-header {
-        padding: 1rem 1.2rem;
-        background: #181818;
-        border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .ai-chat-header h1 {
-        font-size: 1.35rem;
-        margin-bottom: 0.25rem;
-        color: #fff;
-    }
-    .ai-chat-header p {
-        color: rgba(255,255,255,0.75);
-        margin: 0;
-        font-size: 0.92rem;
-    }
-    .ai-chat-body {
-        padding: 1rem 1.2rem 0;
-    }
-    .ai-chat-history {
-        max-height: 360px;
-        overflow-y: auto;
-        padding-right: 0.35rem;
-        margin-bottom: 1rem;
-    }
-    .ai-chat-history::-webkit-scrollbar {
-        width: 6px;
-    }
-    .ai-chat-history::-webkit-scrollbar-thumb {
-        background: rgba(255,255,255,0.15);
-        border-radius: 99px;
-    }
-    .ai-message-bubble {
-        max-width: 78%;
-        padding: 0.95rem 1rem;
-        border-radius: 1.2rem;
-        line-height: 1.5;
-        font-size: 0.95rem;
-        word-break: break-word;
-    }
-    .ai-message-bubble.assistant {
-        background: rgba(255,255,255,0.08);
-        border: 1px solid rgba(255,255,255,0.1);
-        color: #f7f8fa;
-    }
-    .ai-message-bubble.user {
-        background: rgba(255,122,26,0.18);
-        border: 1px solid rgba(255,122,26,0.3);
-        color: #fff;
-    }
-    .ai-chat-message {
-        line-height: 1.6;
-        color: inherit;
-    }
-    .ai-chat-message img {
-        max-width: 100%;
-        height: auto;
-        display: block;
-        margin: 0.75rem 0 0;
-        border-radius: 0.7rem;
-    }
-    .ai-chat-message .product-card {
-        background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(255,255,255,0.12);
-        padding: 0.85rem;
-        border-radius: 1rem;
-        margin-top: 0.85rem;
-    }
-    .ai-chat-message .product-card h3 {
-        margin-top: 0;
-        margin-bottom: 0.5rem;
-        font-size: 1rem;
-        color: #fff;
-    }
-    .ai-chat-message .product-card p {
-        margin: 0.3rem 0;
-        color: rgba(255,255,255,0.82);
-    }
-    .ai-chat-message .product-card a {
-        color: #8fd8ff;
-        text-decoration: none;
-    }
-    .ai-chat-message .product-card a:hover {
-        text-decoration: underline;
-    }
-    .ai-message-meta {
-        display: block;
-        margin-bottom: 0.35rem;
-        font-size: 0.74rem;
-        color: rgba(255,255,255,0.72);
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-    }
-    .ai-chat-input-wrapper {
-        padding: 0.85rem 1rem 1rem;
-        background: #181818;
-        border-top: 1px solid rgba(255,255,255,0.08);
-    }
-    .ai-chat-input {
-        width: 100%;
-        background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(255,255,255,0.12);
-        color: #edf2f7;
-        min-height: 72px;
-        max-height: 140px;
-        resize: vertical;
-        padding: 0.85rem 0.95rem;
-        border-radius: 0.9rem;
-    }
-    .ai-chat-input::placeholder {
-        color: rgba(255,255,255,0.5);
-    }
-    .ai-chat-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.75rem;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: 0.75rem;
-    }
-    .ai-status {
-        color: rgba(255,255,255,0.72);
-        font-size: 0.9rem;
-        min-height: 1.2rem;
-    }
-    .ai-clear-form {
-        padding: 1rem 1.2rem 1.3rem;
-        background: #181818;
-        border-top: 1px solid rgba(255,255,255,0.08);
-        text-align: right;
-    }
-</style>
-
-<div class="container py-4">
-    <div class="row justify-content-center">
-        <div class="col-12 col-md-10 col-lg-8">
-            <div class="ai-chat-shell shadow-sm">
-                <div class="ai-chat-header">
-                    <h1>Hustler420 Chat</h1>
-                    <p>Chat đơn giản. Gõ yêu cầu, gửi, AI trả lời ngay phía dưới.</p>
-                </div>
-
-                <div class="ai-chat-body">
-                    <?php if (!empty($chatError)): ?>
-                        <div class="alert alert-danger mb-3"><?= htmlspecialchars($chatError) ?></div>
-                    <?php endif; ?>
-                    <?php if (!empty($chatSuccess)): ?>
-                        <div class="alert alert-success mb-3"><?= htmlspecialchars($chatSuccess) ?></div>
-                    <?php endif; ?>
-
-                    <div id="aiChatHistory" class="ai-chat-history">
-                        <?php if (empty($chatHistory)): ?>
-                            <div class="d-flex justify-content-start mb-3">
-                                <div class="ai-message-bubble assistant">
-                                    <span class="ai-message-meta">Hustler420 AI</span>
-                                    <div>Chào mừng đến với Hustler420! Tôi sẽ giúp bạn tìm sản phẩm phù hợp và tư vấn nhanh.</div>
-                                </div>
-                            </div>
-                        <?php else: ?>
-                            <?php foreach ($chatHistory as $item): ?>
-                                <?php $isAssistant = ($item['role'] ?? '') === 'assistant'; ?>
-                                <div class="d-flex mb-3 <?= $isAssistant ? 'justify-content-start' : 'justify-content-end' ?>">
-                                    <div class="ai-message-bubble <?= $isAssistant ? 'assistant' : 'user' ?>">
-                                        <span class="ai-message-meta"><?= $isAssistant ? 'Hustler420 AI' : 'Bạn' ?></span>
-                                        <div class="ai-chat-message"><?= $isAssistant ? ($item['text'] ?? '') : nl2br(htmlspecialchars($item['text'] ?? '')) ?></div>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </div>
-
-                    <form id="aiChatForm" action="<?= url('?action=ai-chat-send') ?>" method="POST" class="ai-chat-input-wrapper">
-                        <textarea id="aiMessage" name="message" class="form-control ai-chat-input" placeholder="Nhập yêu cầu của bạn..." required></textarea>
-                        <div class="ai-chat-actions">
-                            <button type="submit" id="aiChatSendButton" class="btn btn-primary">Gửi</button>
-                            <div class="ai-status" id="aiChatStatus">&nbsp;</div>
-                        </div>
-                    </form>
-
-                    <form id="aiChatClearForm" action="<?= url('?action=ai-chat-clear') ?>" method="POST" class="ai-clear-form">
-                        <button type="submit" class="btn btn-outline-light btn-sm">Xóa lịch sử chat</button>
-                    </form>
-                </div>
+﻿<div class="hs-container hs-chat-page">
+    <div class="hs-chat">
+        <div class="hs-chat__head">
+            <div>
+                <h1 class="hs-page-title">Trợ lý mua sắm AI</h1>
+                <p class="hs-hint">Hỏi về điếu cày, thuốc lào, giá và gợi ý phù hợp.</p>
             </div>
+            <form id="aiChatClearForm" action="<?= url('?action=ai-chat-clear') ?>" method="POST">
+                <button type="submit" class="hs-btn hs-btn--ghost">Xóa cuộc trò chuyện</button>
+            </form>
         </div>
+
+        <?php if (!empty($chatError)): ?>
+            <div class="alert alert-danger hs-form-alert mb-3"><?= htmlspecialchars($chatError) ?></div>
+        <?php endif; ?>
+        <?php if (!empty($chatSuccess)): ?>
+            <div class="alert alert-success mb-3"><?= htmlspecialchars($chatSuccess) ?></div>
+        <?php endif; ?>
+
+        <div id="aiChatHistory" class="hs-chat__history">
+            <?php if (empty($chatHistory)): ?>
+                <div class="d-flex justify-content-start mb-3">
+                    <div class="ai-message-bubble assistant">
+                        <span class="ai-message-meta">Hustler420 AI</span>
+                        <div class="ai-chat-message">Chào mừng đến với Hustler420! Tôi sẽ giúp bạn tìm sản phẩm phù hợp và tư vấn nhanh.</div>
+                    </div>
+                </div>
+            <?php else: ?>
+                <?php foreach ($chatHistory as $item): ?>
+                    <?php $isAssistant = ($item['role'] ?? '') === 'assistant'; ?>
+                    <div class="d-flex mb-3 <?= $isAssistant ? 'justify-content-start' : 'justify-content-end' ?>">
+                        <div class="ai-message-bubble <?= $isAssistant ? 'assistant' : 'user' ?>">
+                            <span class="ai-message-meta"><?= $isAssistant ? 'Hustler420 AI' : 'Bạn' ?></span>
+                            <div class="ai-chat-message"><?= $isAssistant ? ($item['text'] ?? '') : nl2br(htmlspecialchars($item['text'] ?? '')) ?></div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+
+        <div class="hs-suggest" id="aiSuggest">
+            <button type="button" class="hs-suggest__btn" data-prompt="Điếu cày dưới 1 triệu">Điếu cày dưới 1 triệu</button>
+            <button type="button" class="hs-suggest__btn" data-prompt="Thuốc lào cho người mới">Thuốc lào cho người mới</button>
+            <button type="button" class="hs-suggest__btn" data-prompt="Món nào đang hot?">Món nào đang hot?</button>
+        </div>
+
+        <form id="aiChatForm" action="<?= url('?action=ai-chat-send') ?>" method="POST" class="hs-chat__input">
+            <textarea id="aiMessage" name="message" class="hs-input hs-chat__textarea" rows="1" placeholder="Nhập yêu cầu của bạn…" required></textarea>
+            <button type="submit" id="aiChatSendButton" class="hs-btn hs-btn--primary">Gửi</button>
+        </form>
+        <div class="hs-chat__status" id="aiChatStatus" role="status">&nbsp;</div>
     </div>
 </div>
 
@@ -202,19 +60,129 @@
         var messageInput = document.getElementById('aiMessage');
         var sendButton = document.getElementById('aiChatSendButton');
         var clearForm = document.getElementById('aiChatClearForm');
+        var suggestWrap = document.getElementById('aiSuggest');
+        var baseUrl = '<?= rtrim((string)BASE_URL, '/') ?>';
+
+        function esc(value) {
+            return String(value ?? '').replace(/[&<>"']/g, function (character) {
+                return ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#039;'
+                })[character];
+            });
+        }
+
+        function isAllowedUrl(value) {
+            if (typeof value !== 'string') {
+                return '';
+            }
+
+            var trimmed = value.trim();
+            if (!trimmed) {
+                return '';
+            }
+
+            if (/^javascript:/i.test(trimmed) || /^data:/i.test(trimmed)) {
+                return '';
+            }
+
+            if (trimmed.indexOf('/' + '?action=') === 0 || trimmed.indexOf('?action=') === 0 || trimmed.indexOf('/') === 0) {
+                return trimmed;
+            }
+
+            if (trimmed.indexOf(baseUrl) === 0) {
+                return trimmed;
+            }
+
+            if (/^https?:\/\//i.test(trimmed)) {
+                try {
+                    var parsed = new URL(trimmed);
+                    var origin = baseUrl || window.location.origin;
+                    return parsed.origin === new URL(origin).origin ? trimmed : '';
+                } catch (error) {
+                    return '';
+                }
+            }
+
+            return '';
+        }
 
         function setChatPending(pending) {
-            messageInput.disabled = pending;
+            messageInput.readOnly = pending;
             sendButton.disabled = pending;
             clearForm.querySelector('button').disabled = pending;
             sendButton.textContent = pending ? 'Đang gửi...' : 'Gửi';
         }
 
+        function removeTypingIndicator() {
+            var typing = document.getElementById('aiTyping');
+            if (typing) {
+                typing.remove();
+            }
+        }
+
+        function updateSuggestVisibility() {
+            if (!suggestWrap) {
+                return;
+            }
+            suggestWrap.hidden = chatHistory && chatHistory.querySelector('.ai-message-bubble') ? true : false;
+        }
+
+        function autosize(el) {
+            el.style.height = 'auto';
+            const border = el.offsetHeight - el.clientHeight;
+            const h = Math.min(Math.max(el.scrollHeight + border, 44), 140);
+            el.style.height = h + 'px';
+            el.style.overflowY = (el.scrollHeight + border) > 140 ? 'auto' : 'hidden';
+        }
+
+        autosize(messageInput);
+        messageInput.addEventListener('input', function () {
+            autosize(messageInput);
+        });
+        messageInput.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                chatForm.requestSubmit();
+            }
+        });
+
+        document.querySelectorAll('.hs-suggest__btn').forEach(function (button) {
+            button.addEventListener('click', function () {
+                if (!messageInput) {
+                    return;
+                }
+                messageInput.value = button.dataset.prompt || '';
+                autosize(messageInput);
+                chatForm.requestSubmit();
+                if (!suggestWrap) {
+                    return;
+                }
+                suggestWrap.hidden = true;
+            });
+        });
+
+        updateSuggestVisibility();
+
         chatForm.addEventListener('submit', function (event) {
             event.preventDefault();
-            status.textContent = 'Đang gửi...';
             var formData = new FormData(chatForm);
+            var messageValue = (formData.get('message') || '').toString().trim();
+
+            if (!messageValue) {
+                status.textContent = 'Vui lòng nhập nội dung chat.';
+                return;
+            }
+
+            status.textContent = 'Đang gửi...';
+            removeTypingIndicator();
+            chatHistory.insertAdjacentHTML('beforeend', '<div class="d-flex mb-3 justify-content-start" id="aiTyping"><div class="ai-message-bubble assistant"><span class="hs-typing"><i></i><i></i><i></i></span></div></div>');
+            chatHistory.scrollTop = chatHistory.scrollHeight;
             setChatPending(true);
+
             fetch(chatForm.action, {
                 method: 'POST',
                 headers: {
@@ -224,16 +192,42 @@
             }).then(function (response) {
                 return response.json();
             }).then(function (data) {
+                removeTypingIndicator();
                 if (data.status === 'success') {
-                    chatHistory.innerHTML = data.historyHtml;
+                    chatHistory.innerHTML = data.historyHtml || '';
                     messageInput.value = '';
-                    chatHistory.scrollTop = chatHistory.scrollHeight;
+                    autosize(messageInput);
+                    suggestWrap.hidden = true;
                     status.textContent = '';
+
+                    if (Array.isArray(data.products) && data.products.length > 0) {
+                        var productHtml = '<div class="hs-chat-cards">';
+                        data.products.forEach(function (product) {
+                            var productUrl = isAllowedUrl(product.url || '');
+                            var imageUrl = esc(product.image || '');
+                            var nameText = esc(product.name || '');
+                            var categoryText = esc(product.category || '');
+                            var priceText = Number(product.price_vnd || 0).toLocaleString('vi-VN') + 'đ';
+
+                            productHtml += '<a class="hs-chat-card" href="' + esc(productUrl || '#') + '"><img src="' + imageUrl + '" alt="" /><span class="hs-chat-card__info"><span class="hs-chat-card__cat">' + categoryText + '</span><span class="hs-chat-card__name">' + nameText + '</span><span class="hs-chat-card__price">' + esc(priceText) + '</span></span><i class="bi bi-chevron-right"></i></a>';
+                        });
+                        productHtml += '</div>';
+                        chatHistory.insertAdjacentHTML('beforeend', productHtml);
+                    }
+
+                    if (data.redirect && data.redirect.url) {
+                        var redirectUrl = isAllowedUrl(data.redirect.url);
+                        if (redirectUrl) {
+                            var redirectLabel = esc(data.redirect.label || 'Đi tới');
+                            chatHistory.insertAdjacentHTML('beforeend', '<div class="hs-chat__cta"><a class="hs-btn hs-btn--primary" href="' + esc(redirectUrl) + '">' + redirectLabel + ' →</a></div>');
+                        }
+                    }
                 } else {
                     status.textContent = data.message || 'Lỗi khi gửi chat.';
                 }
                 setChatPending(false);
             }).catch(function () {
+                removeTypingIndicator();
                 status.textContent = 'Lỗi kết nối. Vui lòng thử lại.';
                 setChatPending(false);
             });
@@ -242,6 +236,7 @@
         clearForm.addEventListener('submit', function (event) {
             event.preventDefault();
             status.textContent = 'Đang xóa...';
+            setChatPending(true);
             fetch(clearForm.action, {
                 method: 'POST',
                 headers: {
@@ -251,8 +246,9 @@
                 return response.json();
             }).then(function (data) {
                 if (data.status === 'success') {
-                    chatHistory.innerHTML = '<div class="d-flex justify-content-start mb-3"><div class="ai-message-bubble assistant"><span class="ai-message-meta">Hustler420 AI</span><div>Chào mừng đến với Hustler420! Tôi sẽ giúp bạn tìm sản phẩm phù hợp và tư vấn nhanh.</div></div></div>';
+                    chatHistory.innerHTML = '<div class="d-flex justify-content-start mb-3"><div class="ai-message-bubble assistant"><span class="ai-message-meta">Hustler420 AI</span><div class="ai-chat-message">Chào mừng đến với Hustler420! Tôi sẽ giúp bạn tìm sản phẩm phù hợp và tư vấn nhanh.</div></div></div>';
                     status.textContent = '';
+                    updateSuggestVisibility();
                 } else {
                     status.textContent = data.message || 'Lỗi khi xóa lịch sử.';
                 }
